@@ -11,8 +11,7 @@
 iface: '{{ ansible_default_ipv4.interface }}'
 
 # this is the repository that holds our sample webapp
-# repository: https://github.com/bennojoy/mywebapp.git
-repository: https://github.com/taniarascia/pdo.git
+repository: https://github.com/hardybmx/ad-pdo.git
 
-# this is the sha1sum of V5 of the test webapp.
-webapp_version: feba19a43e63c617c95a1f6e68825f6e3086336c
+# this is the sha1sum of first version
+webapp_version: 92c996cee504863de36805b86835a3e9f55db0ce

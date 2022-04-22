@@ -10,11 +10,18 @@
     state: present
 
 - name: php-fpm service state
-  service: name=php-fpm state=started enabled=yes
+  service:
+    name: php-fpm
+    state: started
+    enabled: yes
 
 - name: Configure SELinux to allow httpd to connect to remote database
   seboolean: name=httpd_can_network_connect_db state=true persistent=yes
   when: sestatus.rc != 0
 
 - name: Copy the code from repository
-  git: repo={{ repository }} version={{ webapp_version }} dest=/var/www/html/
+  git:
+    repo: "{{ repository }}"
+    version: "{{ webapp_version }}"
+    dest: "/var/www/html/"
+    force: yes
