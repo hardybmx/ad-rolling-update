@@ -1,0 +1,75 @@
+---
+# This role will install MariaDB and create db user and give permissions.
+
+- name: Install MariaDB package
+  yum:
+    name:
+      - mariadb-server
+      - python3-libselinux
+      - python3-libsemanage
+      - python3-PyMySQL
+    state: present
+
+- name: Configure SELinux to start MariaDB on any port
+  seboolean:
+    name: mysql_connect_any 
+    state: true
+    persistent: yes
+  when: sestatus.rc != 0
+
+- name: Create MariaDB configuration file
+  template:
+    src: my.cnf.j2
+    dest: /etc/my.cnf
+  notify: 
+  - restart mysql
+
+- name: Start MariaDB Service
+  service:
+    name: "{{ mysqlservice }}"
+    state: started
+    enabled: true
+
+- name: Set mysql root password
+  mysql_user:
+    name: root
+    password: "{{ mysql_password }}"
+    host_all: true
+    check_implicit_admin: yes
+  no_log: true
+
+- name: Create Application Database
+  mysql_db:
+    login_user: root
+    login_password: "{{ mysql_password }}"
+    name: "{{ dbname }}"
+    state: present
+
+- name: Copy schema database file 
+  copy:
+    src: dump.sql
+    dest: /tmp
+
+- name: Check if table exists
+  shell: mysqlshow -u root -p"{{ mysql_password }}" "{{ dbname }}" "{{ dbtable }}" | grep -q -w "{{ dbtable }}"
+  register: dbstatus
+  failed_when: dbstatus.rc == 2
+
+- name: Restore schema database
+  mysql_db:
+    login_user: root
+    login_password: "{{ mysql_password }}"
+    name: "{{ dbname }}" 
+    state: import
+    target: /tmp/dump.sql
+  when: dbstatus.rc == 1 
+
+- name: Create Application DB User
+  mysql_user:
+    login_user: root
+    login_password: "{{ mysql_password }}"
+    name: "{{ dbuser }}"
+    password: "{{ upassword }}"
+    priv: "{{ dbuser }}.*:ALL,GRANT"
+    state: present
+  no_log: true

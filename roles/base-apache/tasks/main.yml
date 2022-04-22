@@ -1,0 +1,13 @@
+---
+# This role installs httpd
+
+- name: Install http and php etc
+  yum:
+    name:
+     - httpd
+     - python3-libsemanage
+     - python3-libselinux
+    state: present
+
+- name: http service state
+  service: name=httpd state=started enabled=yes

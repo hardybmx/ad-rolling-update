@@ -1,0 +1,9 @@
+[webservers]
+webapp1.lab.jaltana.com
+webapp2.lab.jaltana.com
+
+[dbservers]
+db.lab.jaltana.com
+
+[lbservers]
+haproxy.lab.jaltana.com

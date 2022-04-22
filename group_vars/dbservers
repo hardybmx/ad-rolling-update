@@ -1,0 +1,13 @@
+---
+# The variables file used by the playbooks in the dbservers group.
+# These don't have to be explicitly imported by vars_files: they are autopopulated.
+
+mysqlservice: mariadb.service
+mysql_port: 3306
+mysql_login: root
+mysql_password: MarnecverYour
+
+dbuser: userapp
+upassword: atopml2015.-
+dbname: userdb
+dbtable: users

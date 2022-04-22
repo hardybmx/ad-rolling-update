@@ -1,0 +1,22 @@
+---
+# This role installs HAProxy and configures it.
+
+- name: Download and install haproxy and socat
+  yum:
+    name:
+      - haproxy
+      - socat
+    state: present
+
+- name: Configure the haproxy cnf file with hosts
+  template:
+     src: haproxy.cfg.j2
+     dest: /etc/haproxy/haproxy.cfg
+  notify: restart haproxy
+
+- name: haproxy service state
+  service:
+    name: haproxy
+    state: started
+    enabled: yes
+
