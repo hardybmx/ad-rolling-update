@@ -1,11 +1,7 @@
 LAMP Stack + HAProxy: Example Playbooks
 -----------------------------------------------------------------------------
 
-This version has a lot of changes from the original \
-Flisol 2022, La Paz. Bolivia \
-Hardy Beltran Monasterios \
-Original: https://docs.ansible.com/ansible/latest/user_guide/guide_rolling_upgrade.html
-------------------------------------------------------
+This version has a lot of changes from the original
 
 ### General info
 
