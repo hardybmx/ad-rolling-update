@@ -11,13 +11,17 @@
   notify:
     - restart httpd
 
-#- name: config demoapp
-#  lineinfile:
-#    dest: /var/www/html/config.php
-#    regexp: "{{ item.from }}"
-#    line: "{{ item.to }}"
-#    state: present
-#  with_items:
-#    - { from: '^($username)', to: "$username   = \"{{ dbuser }}\"" }
-#    - { from: '^$password', to: '$password   = "{{ upassword }}"' }
-#    - { from: '^$dbname',   to: '$dbname     = "{{ dbname }}"' }
+- name: include db variables
+  include_vars:
+    file: group_vars/dbservers
+
+- name: config demoapp
+  lineinfile:
+    dest: /var/www/html/config.php
+    regexp: '{{ item.from }}'
+    line: '{{ item.to }}'
+    state: present
+  with_items:
+    - { from: '^\$username', to: '$username   = "{{ dbuser }}";' }
+    - { from: '^\$password', to: '$password   = "{{ upassword }}";' }
+    - { from: '^\$dbname',   to: '$dbname     = "{{ dbname }}";' }
