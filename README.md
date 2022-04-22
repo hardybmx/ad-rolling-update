@@ -1,10 +1,13 @@
 LAMP Stack + HAProxy: Example Playbooks
 -----------------------------------------------------------------------------
 
----
-This version has a lot of changes from the original version
-Hardy Beltran Monasterios <hardybm@gmail.com>
----
+This version has a lot of changes from the original \
+Flisol 2022, La Paz. Bolivia \
+Hardy Beltran Monasterios \
+Original: https://docs.ansible.com/ansible/latest/user_guide/guide_rolling_upgrade.html
+------------------------------------------------------
+
+### General info
 
 - Requires Ansible 2.8
 - Expects CentOS/RHEL 8 hosts
