@@ -22,6 +22,7 @@
     line: '{{ item.to }}'
     state: present
   with_items:
+    - { from: '^\$host',     to: '$host       = "{{ mysql_host }}";' }
     - { from: '^\$username', to: '$username   = "{{ dbuser }}";' }
     - { from: '^\$password', to: '$password   = "{{ upassword }}";' }
     - { from: '^\$dbname',   to: '$dbname     = "{{ dbname }}";' }
